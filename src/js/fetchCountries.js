@@ -1,34 +1,54 @@
-// const baseUrl = 'https://restcountries.eu/rest/v2/name/';
 
-// export default {
-//   fetchArticles(query) {
-//     const requestParams = `${query}`;
-//     return fetch(baseUrl + requestParams).then(res => res.json());
-//   },
+// export const refs = {
+//   searchBox: document.getElementById('search-box'),
+//   countryList: document.querySelector('ul.country-list'),
+//   countryInfo: document.querySelector('div.country-info'),
 // };
 
-// const url = 'https://restcountries.com/v3.1/name/';
-// const fields = '?fields=name,capital,population,flags,languages';
 
-// export function fetchCountries(name) {
+// searchBox.addEventListener( ('search-box'), () => {
+//   fetchCountry()
+//     .then((country) => rendercountryList(country))
+//     .catch((error) => console.log(error));
+// });
 
-//   return fetch(`${url}${name}${fields}`)
-//     .then(response => {
-//     if (!response.ok) {
-//       throw new Error(response.status);
+// function fetchCountry() {
+//   return fetch("https://restcountries.com/v3.1/name/{name}")
+//     .then(
+//     (response) => {
+//       if (!response.ok) {
+//         throw new Error(response.status);
+//       }
+//       return response.json();
 //     }
+//   );
+// }
 
-//     return response.json();
-//   });
+// function rendercountryList(names) {
+//   const markup =names
+//     .map((country) => {
+//       return `<li>
+//           <p><b>Name</b>: ${country.capital}</p>
+//           <p><b>Email</b>: ${country.population}</p>
+//           <p><b>Company</b>: ${country.flags.svg}</p>
+//         </li>`;
+//     })
+//     .join("");
+//   countryList.innerHTML = markup;
 // }
 
 
 
 
 
-// 2222222222222222222
-// const BASE_URL = 'https://restcountries.com/v3.1/name/'
 
+
+
+
+
+
+
+// const BASE_URL = 'https://restcountries.com/v3.1/name/'
 // const fields = 'fields=name,capital,population,flags,languages'
 
 // export function fetchCountries(name) {
@@ -37,80 +57,24 @@
 //     .catch(error => console.log(error))
 // }
 
-// REPETA
-
-fetch("https://restcountries.com/v3.1/name/")
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(response.status);
-    }
-    return response.json();
-  })
-  .then(data => {
-    // Data handling
-  })
-  .catch(error => {
-    // Error handling
-  });
 
 
 
 
-// const refs = {
-//   searchForm: document.querySelector ('search-box'),
-// }
-
-// refs.searchForm.addEventListener('submit', onSearch);
-
-// // function fetchCountries(https://restcountries.com/v2/all?fields=name.official, capital,population,flags.svg,languages)
-
-
-// function onSearch(e) {
-//   e.preventDefault();
-
-
-// const url =
-//   'https://restcountries.com/v3.1/name/';
-// fetch(url)
-//   .then(response =>
-//  response.json())
-//     .then(console.log);
-//         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const searchQuery = e.currentTarget.elements.query.value 
-
-//         .then(response => {
-             
-//         return response.json();
-//         })
-  
-//   .then (r=> r.json())
-        
-//         .then(countries => {
-//           console.log(countries);
-//           const markup = countries
-//         })
-//   .catch(error => {
-//     console.log(error);
-//   })
-        
-//   .then(r => r.json())
-//     .then(console.log);
-
-
-
-
+export const fetchCountries = name => {
+  return fetch(
+    `https://restcountries.com/v3.1/name/${name}?fields=,name,capital,population,flags,languages`
+  )
+      .then(response => {
+      if (!response.ok) {
+        if (response.status === 404) {
+          return [];
+        }
+        throw new Error(response.status);
+      }
+      return response.json();
+    })
+    .catch(error => {
+      console.error(error);
+    });
+};
